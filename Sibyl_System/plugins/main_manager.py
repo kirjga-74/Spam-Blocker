@@ -145,7 +145,7 @@ async def logs(event):
 
 
 @System.on(system_cmd(pattern=r"accept", allow_developers=True, force_reply=True))
-async def accept(event):
+async def aprove(event):
     replied = await event.get_reply_message()
     match = re.match(r"\$SCAN", replied.text)
     auto_match = re.search(r"\$AUTO(SCAN)?", replied.text)
