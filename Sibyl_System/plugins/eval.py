@@ -42,7 +42,7 @@ async def run(event):
     await event.reply(final + "`")
 
 
-@System.on(system_cmd(pattern=r"cardinal (ev|eva|eval|py)"))
+@System.on(system_cmd(pattern=r"spam (ev|eva|eval|py)"))
 async def run_eval(event):
     cmd = event.text.split(" ", 2)
     cmd = cmd[2] if len(cmd) > 2 else ""
@@ -68,8 +68,8 @@ __plugin_name__ = "py"
 help_plus = """
 Run code using **exec** 
 CMD - <x or ex or exec or execute> your code here
-EXAMPLE - `!cardinal x print("OWO")`
+EXAMPLE - `!spam x print("OWO")`
 Run code using **eval**
 CMD - <ev or eva or eval or py> your code
-EXAMPLE - `!cardinal eval 1 + 1`
+EXAMPLE - `!spam eval 1 + 1`
 """
