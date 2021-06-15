@@ -26,8 +26,8 @@ def get_data_from_url(url: str) -> tuple:
     return (match.group(4), match.group(5))
 
 
-@System.on(system_cmd(pattern=r"block ", allow_managers=True))
-async def block(event):
+@System.on(system_cmd(pattern=r"judge ", allow_managers=True))
+async def scan(event):
     replied = await event.get_reply_message()
     flags, reason = seprate_flags(event.text)
     if len(reason.split(" ", 1)) == 1:
@@ -88,9 +88,9 @@ async def block(event):
     executer = await event.get_sender()
     req_proof = req_user = False
     if "f" in flags.keys() and executer.id in DEVELOPERS:
-        accept = True
+        approve = True
     else:
-        accept = False
+        approve = False
     if replied.media:
         await replied.forward_to(Sibyl_logs)
     executor = f"[{executer.first_name}](tg://user?id={executer.id})"
@@ -99,13 +99,13 @@ async def block(event):
         if event.chat.username
         else f"t.me/c/{event.chat.id}/{event.message.id}"
     )
-    await event.reply("I send your request to General to block this person.")
+    await event.reply("Connecting to Cardinal for a cymatic scan.")
     if req_proof and req_user:
         await replied.forward_to(Sibyl_logs)
         await System.gban(
             executer.id, req_user, reason, msg.id, executer, message=replied.text
         )
-    if not accept:
+    if not approve:
         msg = await System.send_message(
             Sibyl_logs,
             scan_request_string.format(
@@ -144,8 +144,8 @@ async def logs(event):
     await System.send_file(event.chat_id, "log.txt")
 
 
-@System.on(system_cmd(pattern=r"accept", allow_developers=True, force_reply=True))
-async def aprove(event):
+@System.on(system_cmd(pattern=r"approve", allow_developers=True, force_reply=True))
+async def approve(event):
     replied = await event.get_reply_message()
     match = re.match(r"\$SCAN", replied.text)
     auto_match = re.search(r"\$AUTO(SCAN)?", replied.text)
@@ -266,22 +266,22 @@ help_plus = """
 Here is the help for **Main**:
 
 Commands:
-    `block` - Reply to a message WITH reason to send a request to General for block this person
-    `accept` - Accept a block request (Only works in Spam Blocker Scanner)
+    `judge` - Reply to a message WITH reason to send a request to Developers for judgement
+    `approve` - Approve a scan request (Only works in Cardinal System Seed)
     `revert` or `revive` or `restore` - Ungban ID
     `qproof` - Get quick proof from database for given user id
     `proof` - Get message from proof id which is at the end of gban msg
     `reject` - Reject a scan request
 
 Flags:
-    block:
-        `-f` - Force accept a block. Using this with block will auto accept it (General+)
-        `-u` - Grab message from url. Use this with message link to block the user the message link redirects to. (Spam Block Managers+)
-        `-o` - Original Sender. Using this will gban orignal sender instead of forwarder (Spam block managers)
+    scan:
+        `-f` - Force approve a scan. Using this with scan will auto approve it (Developers+)
+        `-u` - Grab message from url. Use this with message link to scan the user the message link redirects to. (Managers+)
+        `-o` - Original Sender. Using this will gban orignal sender instead of forwarder (Managers+)
     approve:
-        `-or` - Overwrite reason. Use this to change block reason.
+        `-or` - Overwrite reason. Use this to change scan reason.
     reject:
-        `-r` - Reply to the block message with reject reason.
+        `-r` - Reply to the scan message with reject reason.
 
 All commands can be used with ! or / or ? or .
 """
