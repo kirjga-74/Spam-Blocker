@@ -7,20 +7,20 @@ Your validity is successfully verified.
 # Make sure not to change these too much
 # If you still wanna change it change the regex too
 scan_request_string = """
-$SCAN
-Cymatic Judge request!
-**Manager:** {manager} 
-**User scanned:** {spammer}
+$BLOCKREQUEST
+Block request to block this person!
+**Spma Block manager:** {manager} 
+**User blocked:** {spammer}
 **Reason:** `{reason}`
-**Judge Source:** {chat}
+**Block Source:** {chat}
 **Target Message:** `{message}`
 """
 forced_scan_string = """
 $FORCED
-**Developer:** {dev}
+**GENERAL:** {dev}
 **Target:** {spammer}
 **Reason:** `{reason}`
-**Judge Source:** {chat}
+**Block Source:** {chat}
 **Target Message:** `{message}`
 """
 
@@ -49,7 +49,7 @@ scan_approved_string = """
 
 bot_gban_string = """
 #DestroyDecomposer
-**Manager:** `{manager}`
+**Spam Block Manager:** `{manager}`
 **Target User:** {scam}
 **Reason:** `{reason}`
 """
