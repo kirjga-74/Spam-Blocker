@@ -88,9 +88,9 @@ async def block(event):
     executer = await event.get_sender()
     req_proof = req_user = False
     if "f" in flags.keys() and executer.id in DEVELOPERS:
-        approve = True
+        accept = True
     else:
-        approve = False
+        accept = False
     if replied.media:
         await replied.forward_to(Sibyl_logs)
     executor = f"[{executer.first_name}](tg://user?id={executer.id})"
@@ -105,7 +105,7 @@ async def block(event):
         await System.gban(
             executer.id, req_user, reason, msg.id, executer, message=replied.text
         )
-    if not approve:
+    if not accept:
         msg = await System.send_message(
             Sibyl_logs,
             scan_request_string.format(
