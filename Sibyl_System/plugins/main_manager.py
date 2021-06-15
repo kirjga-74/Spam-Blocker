@@ -99,7 +99,7 @@ async def block(event):
         if event.chat.username
         else f"t.me/c/{event.chat.id}/{event.message.id}"
     )
-    await event.reply("Connecting to Cardinal for a cymatic scan.")
+    await event.reply("I send your request to General to block this person.")
     if req_proof and req_user:
         await replied.forward_to(Sibyl_logs)
         await System.gban(
@@ -144,8 +144,8 @@ async def logs(event):
     await System.send_file(event.chat_id, "log.txt")
 
 
-@System.on(system_cmd(pattern=r"approve", allow_developers=True, force_reply=True))
-async def approve(event):
+@System.on(system_cmd(pattern=r"accept", allow_developers=True, force_reply=True))
+async def accept(event):
     replied = await event.get_reply_message()
     match = re.match(r"\$SCAN", replied.text)
     auto_match = re.search(r"\$AUTO(SCAN)?", replied.text)
@@ -266,8 +266,8 @@ help_plus = """
 Here is the help for **Main**:
 
 Commands:
-    `block` - Reply to a message WITH reason to send a request to Developers for judgement
-    `approve` - Approve a scan request (Only works in Cardinal System Seed)
+    `block` - Reply to a message WITH reason to send a request to General for block this person
+    `accept` - Accept a block request (Only works in Spam Blocker Scanner)
     `revert` or `revive` or `restore` - Ungban ID
     `qproof` - Get quick proof from database for given user id
     `proof` - Get message from proof id which is at the end of gban msg
@@ -275,13 +275,13 @@ Commands:
 
 Flags:
     block:
-        `-f` - Force approve a block. Using this with scan will auto approve it (Gernal+)
-        `-u` - Grab message from url. Use this with message link to block the user the message link redirects to. (Managers+)
+        `-f` - Force accept a block. Using this with block will auto accept it (General+)
+        `-u` - Grab message from url. Use this with message link to block the user the message link redirects to. (Spam Block Managers+)
         `-o` - Original Sender. Using this will gban orignal sender instead of forwarder (Spam block managers)
     approve:
         `-or` - Overwrite reason. Use this to change block reason.
     reject:
-        `-r` - Reply to the scan message with reject reason.
+        `-r` - Reply to the block message with reject reason.
 
 All commands can be used with ! or / or ? or .
 """
