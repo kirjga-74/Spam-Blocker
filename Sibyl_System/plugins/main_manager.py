@@ -26,8 +26,8 @@ def get_data_from_url(url: str) -> tuple:
     return (match.group(4), match.group(5))
 
 
-@System.on(system_cmd(pattern=r"judge ", allow_managers=True))
-async def scan(event):
+@System.on(system_cmd(pattern=r"block ", allow_managers=True))
+async def block(event):
     replied = await event.get_reply_message()
     flags, reason = seprate_flags(event.text)
     if len(reason.split(" ", 1)) == 1:
@@ -266,7 +266,7 @@ help_plus = """
 Here is the help for **Main**:
 
 Commands:
-    `judge` - Reply to a message WITH reason to send a request to Developers for judgement
+    `block` - Reply to a message WITH reason to send a request to Developers for judgement
     `approve` - Approve a scan request (Only works in Cardinal System Seed)
     `revert` or `revive` or `restore` - Ungban ID
     `qproof` - Get quick proof from database for given user id
@@ -274,12 +274,12 @@ Commands:
     `reject` - Reject a scan request
 
 Flags:
-    scan:
-        `-f` - Force approve a scan. Using this with scan will auto approve it (Developers+)
-        `-u` - Grab message from url. Use this with message link to scan the user the message link redirects to. (Managers+)
-        `-o` - Original Sender. Using this will gban orignal sender instead of forwarder (Managers+)
+    block:
+        `-f` - Force approve a block. Using this with scan will auto approve it (Gernal+)
+        `-u` - Grab message from url. Use this with message link to block the user the message link redirects to. (Managers+)
+        `-o` - Original Sender. Using this will gban orignal sender instead of forwarder (Spam block managers)
     approve:
-        `-or` - Overwrite reason. Use this to change scan reason.
+        `-or` - Overwrite reason. Use this to change block reason.
     reject:
         `-r` - Reply to the scan message with reject reason.
 
